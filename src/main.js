@@ -7,10 +7,16 @@ import navcom from './components/navcom.vue'
 import auditList from './components/auditList.vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
+import infiniteScroll from 'vue-infinite-scroll'
+import VueLazyLoad from 'vue-lazyload'
 import Vuex from 'vuex'
 Vue.use(VueRouter)
 Vue.use(VueResource)
 Vue.use(Vuex)
+Vue.use(infiniteScroll)
+Vue.use(VueLazyLoad,{
+  loading:'/src/assets/loading.gif'
+})
 
 const router = new VueRouter({
   mode: 'history',

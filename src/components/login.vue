@@ -69,11 +69,11 @@ export default {
             //跳转到导航页
             a.push({path:'/navcom'});
           }else{
-            alert(response.msg)
+            $.toast(response.msg, "text");
           }
         },
         error:function (error) {
-          alert('网络异常')
+          $.toast("网络异常", "forbidden");
         }
       });
     }

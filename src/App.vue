@@ -14,6 +14,14 @@
 
 export default {
   name: 'app',
+  data () {
+    return {
+
+    }
+  },
+  mounted () {
+
+  },
   components: {
 
   }

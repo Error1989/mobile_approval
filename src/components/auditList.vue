@@ -16,8 +16,8 @@
         </div>
         <div class="weui-tab__bd">
           <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
-            <div style="margin-bottom: 20px;" class="weui-form-preview" v-for="(item,index) in msg">
-              <h3 style="padding-top: 10px;">{{item.source_name}}</h3>
+            <div class="weui-form-preview" v-for="(item,index) in msg">
+              <h3 style="padding-top: 14px;">{{item.source_name}}</h3>
               <div class="weui-form-preview__hd">
                 <label class="weui-form-preview__label">付款金额</label>
                 <em class="weui-form-preview__value" style="color: #e64340;">¥{{item.amount}}</em>
@@ -32,6 +32,10 @@
                   <span class="weui-form-preview__value">{{item.update_time}}</span>
                 </div>
                 <div class="weui-form-preview__item">
+                  <label class="weui-form-preview__label">交易对象</label>
+                  <span class="weui-form-preview__value">{{item.source_type}}</span>
+                </div>
+                <div class="weui-form-preview__item">
                   <label class="weui-form-preview__label">交易类型</label>
                   <span class="weui-form-preview__value">{{item.transaction_type}}</span>
                 </div>
@@ -40,19 +44,22 @@
                   <span class="weui-form-preview__value">{{item.balance_type}}</span>
                 </div>
                 <div class="weui-form-preview__item">
-                  <label class="weui-form-preview__label">审核状态</label>
-                  <span class="weui-form-preview__value" v-for="item in msg[index].audits" v-if="msg[index].audits[0].admin_name">
-                    {{item.admin_name+item.audit_type}}
+                  <label class="weui-form-preview__label">审批状态</label>
+                  <span class="weui-form-preview__value">
+                    <span style="color: #00bfff" v-for="item in msg[index].audits">{{' '+item.admin_name+item.audit_type}}</span>
                   </span>
                 </div>
                 <div class="weui-form-preview__item">
                   <label class="weui-form-preview__label">备注</label>
-                  <span class="weui-form-preview__value">{{item.remark}}</span>
+                  <span class="weui-form-preview__value">
+                    {{item.remark}}
+                    <span v-for="item in msg[index].audits">{{' '+item.remark}}</span>
+                  </span>
                 </div>
               </div>
               <div class="weui-form-preview__ft">
-                <a class="weui-form-preview__btn weui-form-preview__btn_primary">通过</a>
-                <a style="color: #e64340;" class="weui-form-preview__btn weui-form-preview__btn_default">不通过</a>
+                <button type="submit" class="weui-form-preview__btn weui-form-preview__btn_primary" @click="onSubmit(msg[index].id)">通过</button>
+                <button type="button" style="color: #e64340;" class="weui-form-preview__btn weui-form-preview__btn_default" @click="prompt(msg[index].id,msg[index])">不通过</button>
               </div>
             </div>
           </div>
@@ -60,6 +67,10 @@
             <h1>页面二</h1>
           </div>
         </div>
+      </div>
+
+      <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="20" style="text-align: center">
+        <img src="./../assets/loading.gif" v-if="loading">
       </div>
 
     </div>
@@ -70,6 +81,8 @@
         name: 'auditList',
         data () {
             return {
+              loading:false,
+              busy:true,
               page: 1,
               pagesize: 8,
               msg: [],
@@ -77,10 +90,12 @@
         },
         mounted () {
           this.getMsg();
+          this.loadMore();
         },
         methods: {
           //获取未审批的信息
-          getMsg () {
+          getMsg (flag) {
+            this.loading = true;
             this.$http.post('http://www.sikedaodi.com/jikebang/api/web/index.php?r=admin/transaction-audit-list',{
               admin_id:window.localStorage.getItem('admin_id'),
               access_token:window.localStorage.getItem('access_token'),
@@ -88,8 +103,72 @@
               pagesize:this.pagesize,
             }).then(response=>{
               let res = response.data;
-              this.msg=res.data;
+              this.loading = false;
+              if(flag) {
+                this.msg=this.msg.concat(res.data);//flag为true,分页的数据累加
+                if(res.data.length<this.pagesize) {
+                  this.busy=true;
+                }else {
+                  this.busy=false;
+                }
+              }else {
+                this.msg=res.data;//第一次加载页面，数据不累加
+                this.busy=false;
+              }
             })
+          },
+
+          //通过审核
+          onSubmit (i) {
+            this.$http.post('http://www.sikedaodi.com/jikebang/api/web/index.php?r=admin/audit',{
+              admin_id:window.localStorage.getItem('admin_id'),
+              access_token:window.localStorage.getItem('access_token'),
+              transaction_id:i,
+              audit_type:'已通过',
+              remark: '',
+            }).then(response=>{
+              let res = response.data;
+              $.toast(res.msg);
+            })
+          },
+
+          //点击不通过后弹出输入框
+          prompt (i) {
+            $.prompt("请输入审批不通过的原因", function(text) {
+              //点击确认后的回调函数
+              //text 是用户输入的内容
+
+              //不通过审核
+              $.ajax({
+                type:'post',
+                url:'http://www.sikedaodi.com/jikebang/api/web/index.php?r=admin/audit',
+                dataType:'json',
+                data:{
+                  admin_id:window.localStorage.getItem('admin_id'),
+                  access_token:window.localStorage.getItem('access_token'),
+                  transaction_id:i,
+                  audit_type:'已拒绝',
+                  remark:text,
+                },
+                success:function (response) {
+                  $.toast(response.msg);
+                },
+                error:function (error) {
+                  $.toast("网络异常", "forbidden");
+                }
+              });
+            }, function() {
+              //点击取消后的回调函数
+            });
+          },
+
+          //分页功能
+          loadMore () {
+            this.busy=true;
+            setTimeout(() => {
+              this.page++;
+              this.getMsg(true);
+            }, 500);
           },
         },
     }
