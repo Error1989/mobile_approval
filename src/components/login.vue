@@ -42,10 +42,11 @@ export default {
       if (window.localStorage.getItem('username') ) {
         this.username = window.localStorage.getItem('username');
       } else {
-        alert('登录信息不存在或已过期，请手动输入');
+        $.toast("登录信息不存在或已过期，请手动输入", "text");
       }
 
     },
+
     //登录功能
     onLogin () {
       let a = this.$router;

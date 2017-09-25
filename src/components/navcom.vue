@@ -6,7 +6,14 @@
 
       <div class="weui-grids">
         <!--banner图片-->
-        <div class="banner"><img src="../assets/img/banner2.jpg" alt=""></div>
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="../assets/img/banner2.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="../assets/img/banner1.jpg" alt=""></div>
+          </div>
+          <!-- Add Pagination -->
+          <div class="swiper-pagination"></div>
+        </div>
 
         <router-link to="/auditList" class="weui-grid js_grid">
           <div class="weui-grid__icon">
@@ -15,7 +22,7 @@
           <p class="weui-grid__label">
             付款审批<span style="color: #e64340;" v-for="item in tips">({{item}})</span>
           </p>
-        </router-link><router-link to="" class="weui-grid js_grid">
+        </router-link><router-link to="customerDebts" class="weui-grid js_grid">
         <div class="weui-grid__icon">
           <img src="../assets/img/3.png" alt="客户货款">
         </div>
@@ -69,7 +76,15 @@
             }
         },
       mounted () {
-       this.getTips();
+        $(".swiper-container").swiper({
+          pagination: '.swiper-pagination',
+          paginationClickable: true,
+          spaceBetween: 30,
+          centeredSlides: true,
+          autoplay: 5000,
+          autoplayDisableOnInteraction: false
+        });
+        this.getTips();
       },
       methods: {
         //获取付款审批组件内未处理信息的总数
@@ -82,6 +97,7 @@
             this.tips=res.data;
           })
         },
+
         //退出当前系统
         logout(){
           window.localStorage.removeItem('admin_id');
@@ -98,18 +114,17 @@
     background-color: #3cc51f;
   }
   header h3{
-    /*color: #3cc51f;*/
     color: #ffffff;
     font-weight: 400;
     font-size: 25px;
     text-align: center;
     font-family: "微软雅黑";
   }
-  .banner {
+  .swiper-container {
     width: 100%;
     height: auto;
   }
-  .banner img {
+  .swiper-container img {
     max-width:100%;
     height:auto;
   }

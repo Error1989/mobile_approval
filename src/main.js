@@ -5,6 +5,7 @@ import App from './App'
 import login from './components/login.vue'
 import navcom from './components/navcom.vue'
 import auditList from './components/auditList.vue'
+import customerDebts from './components/customerDebts.vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 import infiniteScroll from 'vue-infinite-scroll'
@@ -18,6 +19,7 @@ Vue.use(VueLazyLoad,{
   loading:'/src/assets/loading.gif'
 })
 
+//路由设置
 const router = new VueRouter({
   mode: 'history',
   routes: [
@@ -47,6 +49,15 @@ const router = new VueRouter({
         requireAuth: true,
       },
       component: auditList
+    },
+    {
+      path: '/customerDebts',
+      name: 'customerDebts',
+      meta: {
+        // 添加该字段，表示进入这个路由是需要登录的
+        requireAuth: true,
+      },
+      component: customerDebts
     },
   ]
 })
@@ -96,5 +107,5 @@ new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: { App, login, navcom, auditList }
+  components: { App, login, navcom, auditList, customerDebts }
 })

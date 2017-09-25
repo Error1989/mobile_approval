@@ -16,8 +16,8 @@
         </div>
         <div class="weui-tab__bd">
           <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
-            <div class="weui-form-preview" v-for="(item,index) in msg">
-              <h3 style="padding-top: 14px;">{{item.source_name}}</h3>
+            <div class="weui-form-preview" v-for="(item,index) in msg" v-if="msg[index].transaction_status == '未审核' ">
+              <h3 style="padding-top: 20px;">{{item.source_name}}</h3>
               <div class="weui-form-preview__hd">
                 <label class="weui-form-preview__label">付款金额</label>
                 <em class="weui-form-preview__value" style="color: #e64340;">¥{{item.amount}}</em>
@@ -64,12 +64,53 @@
             </div>
           </div>
           <div id="tab2" class="weui-tab__bd-item">
-            <h1>页面二</h1>
+            <div class="weui-form-preview" v-for="(item,index) in msg" v-if="msg[index].transaction_status == '已通过'">
+              <h3 style="padding-top: 20px;">{{item.source_name}}</h3>
+              <div class="weui-form-preview__hd">
+                <label class="weui-form-preview__label">付款金额</label>
+                <em class="weui-form-preview__value" style="color: #e64340;">¥{{item.amount}}</em>
+              </div>
+              <div class="weui-form-preview__bd">
+                <div class="weui-form-preview__item">
+                  <label class="weui-form-preview__label">订单ID</label>
+                  <span class="weui-form-preview__value">{{item.id}}</span>
+                </div>
+                <div class="weui-form-preview__item">
+                  <label class="weui-form-preview__label">付款日期</label>
+                  <span class="weui-form-preview__value">{{item.update_time}}</span>
+                </div>
+                <div class="weui-form-preview__item">
+                  <label class="weui-form-preview__label">交易对象</label>
+                  <span class="weui-form-preview__value">{{item.source_type}}</span>
+                </div>
+                <div class="weui-form-preview__item">
+                  <label class="weui-form-preview__label">交易类型</label>
+                  <span class="weui-form-preview__value">{{item.transaction_type}}</span>
+                </div>
+                <div class="weui-form-preview__item">
+                  <label class="weui-form-preview__label">摘要</label>
+                  <span class="weui-form-preview__value">{{item.balance_type}}</span>
+                </div>
+                <div class="weui-form-preview__item">
+                  <label class="weui-form-preview__label">审批状态</label>
+                  <span class="weui-form-preview__value">
+                    <span style="color: #00bfff" v-for="item in msg[index].audits">{{' '+item.admin_name+item.audit_type}}</span>
+                  </span>
+                </div>
+                <div class="weui-form-preview__item">
+                  <label class="weui-form-preview__label">备注</label>
+                  <span class="weui-form-preview__value">
+                    {{item.remark}}
+                    <span v-for="item in msg[index].audits">{{' '+item.remark}}</span>
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="20" style="text-align: center">
+      <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="20" style="text-align: center;margin-top: 20px;">
         <img src="./../assets/loading.gif" v-if="loading">
       </div>
 
@@ -83,17 +124,16 @@
             return {
               loading:false,
               busy:true,
-              page: 1,
-              pagesize: 8,
-              msg: [],
+              page:1,
+              pagesize:8,
+              msg:[],
             }
         },
         mounted () {
           this.getMsg();
-          this.loadMore();
         },
         methods: {
-          //获取未审批的信息
+          //获取付款审批的信息
           getMsg (flag) {
             this.loading = true;
             this.$http.post('http://www.sikedaodi.com/jikebang/api/web/index.php?r=admin/transaction-audit-list',{
@@ -180,7 +220,6 @@
     background-color: #3cc51f;
   }
   header h3{
-    /*color: #3cc51f;*/
     width: 60%;
     margin: 0 auto;
     color: #ffffff;
@@ -188,5 +227,8 @@
     font-size: 25px;
     text-align: center;
     font-family: "微软雅黑";
+  }
+  .weui-form-preview__value {
+    color: #000000;
   }
 </style>
