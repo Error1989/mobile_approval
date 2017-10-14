@@ -34,7 +34,6 @@ export default {
 <style scoped>
 #app {
   font-family: "宋体";
-  text-align: center;
 }
 .weui-footer {
   margin-top: 40px;

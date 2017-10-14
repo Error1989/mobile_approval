@@ -215,6 +215,9 @@
 </script>
 
 <style scoped>
+  #auditList {
+    text-align: center;
+  }
   header {
     padding: 10px 0;
     background-color: #3cc51f;

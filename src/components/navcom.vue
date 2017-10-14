@@ -22,7 +22,7 @@
           <p class="weui-grid__label">
             付款审批<span style="color: #e64340;" v-for="item in tips">({{item}})</span>
           </p>
-        </router-link><router-link to="customerDebts" class="weui-grid js_grid">
+        </router-link><router-link to="/customerDebts" class="weui-grid js_grid">
         <div class="weui-grid__icon">
           <img src="../assets/img/3.png" alt="客户货款">
         </div>

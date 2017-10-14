@@ -147,7 +147,6 @@
           //获取客户的货款信息
           getMsg (flag) {
             this.loading = true;
-            console.log(this.page);
             this.$http.post('http://www.sikedaodi.com/jikebang/api/web/index.php?r=admin/customer-debts',{
               admin_id:window.localStorage.getItem('admin_id'),
               access_token:window.localStorage.getItem('access_token'),
@@ -245,6 +244,9 @@
 </script>
 
 <style scoped>
+  #customerDebts {
+    text-align: center;
+  }
   header {
     padding: 10px 0;
     background-color: #3cc51f;

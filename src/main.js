@@ -6,6 +6,9 @@ import login from './components/login.vue'
 import navcom from './components/navcom.vue'
 import auditList from './components/auditList.vue'
 import customerDebts from './components/customerDebts.vue'
+import order from './components/order.vue'
+import search from './components/search.vue'
+import order_details from './components/order_details.vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 import infiniteScroll from 'vue-infinite-scroll'
@@ -59,6 +62,33 @@ const router = new VueRouter({
       },
       component: customerDebts
     },
+    {
+      path: '/order',
+      name: 'order',
+      meta: {
+        // 添加该字段，表示进入这个路由是需要登录的
+        requireAuth: true,
+      },
+      component: order,
+    },
+    {
+      path: '/search',
+      name: 'search',
+      meta: {
+        // 添加该字段，表示进入这个路由是需要登录的
+        requireAuth: true,
+      },
+      component: search,
+    },
+    {
+      path: '/order_details',
+      name: 'order_details',
+      meta: {
+        // 添加该字段，表示进入这个路由是需要登录的
+        requireAuth: true,
+      },
+      component: order_details
+    },
   ]
 })
 
@@ -88,7 +118,7 @@ Vue.http.interceptors.push((request, next) => {
     Vue.http.headers.common['Authorization'] = 'Bearer ' + window.localStorage.getItem('access_token');//如果access_token存在，就在请求头中加入access_token
   }
   next((response) => {
-    if (response.data.result === -99) {//判断access_token是否过期
+    if (response.data.result == -99) {//判断access_token是否过期
       //清空过期的用户登录信息
       window.localStorage.removeItem('access_token');
       window.localStorage.removeItem('admin_id');
@@ -107,5 +137,5 @@ new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: { App, login, navcom, auditList, customerDebts }
+  components: { App, order, login, navcom, auditList, customerDebts, search, order_details,}
 })
