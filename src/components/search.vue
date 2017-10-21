@@ -89,7 +89,7 @@
         this.$http.post('http://www.sikedaodi.com/jikebang/api/web/index.php?r=admin/orders',{
           admin_id:window.localStorage.getItem('admin_id'),
           access_token:window.localStorage.getItem('access_token'),
-          ismy:1,
+//          ismy:1,
           keyword:this.keyword,
           page:this.page,
           pagesize:this.pagesize,

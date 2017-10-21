@@ -279,7 +279,7 @@
       },
       //获取收货人及地址的数据（遮罩层）
       getAddressData () {
-        this.$http.post('http://www.sikedaodi.com/jikebang/api/web/index.php?r=customer/address-list',{
+        this.$http.post('http://www.sikedaodi.com/jikebang/api/web/index.php?r=admin/address-list',{
           admin_id:window.localStorage.getItem('admin_id'),
           access_token:window.localStorage.getItem('access_token'),
         }).then(response=>{

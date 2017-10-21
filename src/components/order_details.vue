@@ -15,7 +15,6 @@
       </div>
 
       <div class="weui-cell">
-        <div style="overflow: hidden"></div>
         <div class="weui-cell__bd">
           <p>订单ID：{{detailsData.id}}</p>
         </div>
