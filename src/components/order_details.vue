@@ -3,9 +3,9 @@
     <header>
       <h3>订单详情</h3>
     </header>
-    <div class="weui-cells" style="margin-top: 0px;">
+    <div class="weui-cells" style="margin-top:0px;">
       <!--banner图片-->
-      <div class="swiper-container">
+      <div class="swiper-container" style="font-size:0;">
         <div class="swiper-wrapper">
           <div class="swiper-slide"><img src="../assets/img/banner2.jpg" alt=""></div>
           <div class="swiper-slide"><img src="../assets/img/banner1.jpg" alt=""></div>
@@ -181,5 +181,4 @@
   p {
     margin-bottom: 5px;
   }
-
 </style>

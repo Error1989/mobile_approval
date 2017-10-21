@@ -47,6 +47,7 @@
       return {
         loading:false,
         searchData: [],
+        searchData_key:false,
         page:1,
         pagesize:8,
         keyword:'',
@@ -86,6 +87,7 @@
       //搜索订单数据
       searchOrder(flag){
         this.loading = true;
+		    this.searchData_key = true;
         this.$http.post('http://www.sikedaodi.com/jikebang/api/web/index.php?r=admin/orders',{
           admin_id:window.localStorage.getItem('admin_id'),
           access_token:window.localStorage.getItem('access_token'),
@@ -107,17 +109,24 @@
               this.searchData=res.data;//第一次加载页面，数据不累加
               this.busy=false;
             }
-          })
+          });
       },
 
       //分页功能
       loadMore(){
-        this.busy=true;
-        setTimeout(() => {
-          this.page++;
-          this.getSearch(true);
-          this.searchOrder(true);
-        }, 500);
+        if (!this.searchData_key) {
+          this.busy=true;
+              setTimeout(() => {
+                this.page++;
+                this.getSearch(true);
+              }, 500);
+        }else {
+          this.busy=true;
+              setTimeout(() => {
+                this.page++;
+                this.searchOrder(true);
+              }, 500);
+        }
       },
 
       //搜索时清空msg的数据,并将page重置为1
@@ -149,5 +158,8 @@
   }
   .weui-btn {
     margin-top: 10px;
+  }
+  .weui-cells {
+    margin-top:0px;
   }
 </style>

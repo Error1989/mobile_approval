@@ -138,6 +138,8 @@
               pagesize:8,
               keyword:'',
               msg:[],
+              msg_key1:false,
+              msg_key2:false,
             }
         },
         mounted () {
@@ -172,6 +174,7 @@
           //搜索已逾期的货款信息
           searchExpired (flag) {
             this.loading = true;
+            this.msg_key1 = true;
             this.$http.post('http://www.sikedaodi.com/jikebang/api/web/index.php?r=admin/customer-debts',{
               admin_id:window.localStorage.getItem('admin_id'),
               access_token:window.localStorage.getItem('access_token'),
@@ -199,6 +202,7 @@
           //搜索即将到期的货款信息
           searchUnpaid (flag) {
             this.loading = true;
+            this.msg_key2 = true;
             this.$http.post('http://www.sikedaodi.com/jikebang/api/web/index.php?r=admin/customer-debts',{
               admin_id:window.localStorage.getItem('admin_id'),
               access_token:window.localStorage.getItem('access_token'),
@@ -225,13 +229,25 @@
 
           //分页功能
           loadMore () {
-            this.busy=true;
-            setTimeout(() => {
-              this.page++;
-              this.getMsg(true);
-              this.searchExpired(true);
-              this.searchUnpaid(true);
-            }, 500);
+            if (!this.msg_key1 && this.msg_key2) {
+              this.busy=true;
+              setTimeout(() => {
+                this.page++;
+                this.getMsg(true);
+              }, 500);
+            }else if (this.msg_key1) {
+              this.busy=true;
+              setTimeout(() => {
+                this.page++;
+                this.searchExpired(true);
+              }, 500);
+            }else if (this.msg_key2) {
+              this.busy=true;
+              setTimeout(() => {
+                this.page++;
+                this.searchUnpaid(true);
+              }, 500);
+            }
           },
 
           //搜索时清空msg的数据,并将page重置为1
