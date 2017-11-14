@@ -42,7 +42,7 @@ export default {
       if (window.localStorage.getItem('username') ) {
         this.username = window.localStorage.getItem('username');
       } else {
-        $.toast("登录信息不存在或已过期，请手动输入", "text");
+        $.toptip('登录信息不存在或已过期，请手动输入', 'warning');
       }
 
     },
@@ -70,11 +70,11 @@ export default {
             //跳转到导航页
             a.push({path:'/navcom'});
           }else{
-            $.toast(response.msg, "text");
+            $.toptip(response.msg, 'error');
           }
         },
         error:function (error) {
-          $.toast("网络异常", "forbidden");
+          $.toptip('网络异常', 'warning');
         }
       });
     }

@@ -4,7 +4,7 @@
       <h3>新增订单</h3>
     </header>
     <div class="weui-cells weui-cells_form">
-      <div style="text-align: center;margin-top: 15px;">
+      <div style="text-align: center;margin-top: 15px;margin-bottom: 10px;">
         <a href="javascript:;" class="open-popup weui-btn weui-btn_mini weui-btn_plain-primary" data-target="#products_data">选择商品</a>
         <!--<a href="javascript:;" class="open-popup weui-btn weui-btn_mini weui-btn_plain-primary" data-target="#accessories_data" style="margin-left: 15px">选择辅料</a>-->
       </div>
@@ -14,7 +14,7 @@
         <div class="weui-cell" v-for="(item,index) in products">
           <div class="weui-cell__hd"><p>{{item.name}}</p></div>
           <div class="weui-cell__bd">
-            <input class="weui-input" pattern="[0-9]*" type="number" style="float: right;text-align: center;border: 1px solid #d9d9d9;border-radius: 5px;width: 45px;" v-model.trim="products[index].count">
+            <input class="weui-input" pattern="[0-9]*" type="number" style="float: right;text-align: center;border: 1px solid #d9d9d9;border-radius: 5px;width: 50px;" v-model.trim="products[index].count">
           </div>
           <div class="weui-cell__ft" style="margin-left: 10%">
             <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_warn" @click="delProducts(index)">删除</a>
@@ -76,7 +76,7 @@
       </div>
     </div>
 
-    <div style="text-align: center;margin-top: 15px;">
+    <div style="text-align: center;margin-top: 40px;margin-bottom: 10px;">
       <a href="javascript:;" class="open-popup weui-btn weui-btn_mini weui-btn_plain-primary" data-target="#address_data">选择收货人及地址信息</a>
     </div>
     <!--选择收货人及地址部分（遮罩层）-->
@@ -203,7 +203,7 @@
       //添加商品功能
       addProducts (i) {
         this.products.push(this.productsData[i]);
-        $.toast("选择成功");
+        $.toptip('选择成功', 'success');
       },
       //删除商品功能
       delProducts (i) {
@@ -212,7 +212,7 @@
       //添加辅料功能
       addAccessories (i) {
         this.accessories.push(this.accessoriesData[i]);
-        $.toast("选择成功");
+        $.toptip('选择成功', 'success');
       },
       //删除辅料功能
       delAccessories (i) {
@@ -233,7 +233,7 @@
           city: this.receiver_city,
           district: this.receiver_district
         });
-        $.toast("选择成功");
+        $.toptip('选择成功', 'success');
       },
       //订单提交功能
       onSubmit () {
@@ -251,10 +251,10 @@
           admin_id:window.localStorage.getItem('admin_id'),
           access_token:window.localStorage.getItem('access_token'),
         }).then((response) => {
-          $.toast(response.data.msg);
+          $.toptip(response.data.msg, 'success');
           this.$router.push({path:'/navcom'});
         },(error) => {
-          $.toast("提交失败", "forbidden");
+          $.toptip('提交失败', 'error');
         })
       },
       //获取商品的数据（遮罩层）
@@ -315,5 +315,11 @@
   .close-popup {
     width: 70%;
     margin-top: 20px;
+  }
+  .weui-cells {
+    margin-top:0px;
+  }
+  .weui-cell:before {
+    left: 0;
   }
 </style>

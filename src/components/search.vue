@@ -162,4 +162,7 @@
   .weui-cells {
     margin-top:0px;
   }
+  .weui-media-box__desc {
+    font-size: 15px;
+  }
 </style>

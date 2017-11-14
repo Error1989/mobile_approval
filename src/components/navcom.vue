@@ -46,12 +46,12 @@
             查询订单
           </p>
         </router-link>
-        <a href="http://weidian.com/s/204012005?wfr=c" target="_blank" class="weui-grid js_grid">
+        <a class="weui-grid js_grid open-popup" href="javascript:;" data-target="#changePassword">
           <div class="weui-grid__icon">
-            <img src="../assets/img/5.png" alt="访问微店">
+            <img src="../assets/img/5.png" alt="修改密码">
           </div>
           <p class="weui-grid__label">
-            访问微店
+            修改密码
           </p>
         </a>
         <a @click="logout" class="weui-grid js_grid">
@@ -63,6 +63,43 @@
           </p>
         </a>
 
+        <!--修改密码-->
+        <div id="changePassword" class="weui-popup__container popup-bottom">
+          <div class="weui-popup__overlay"></div>
+          <div class="weui-popup__modal">
+            <div class="toolbar">
+              <div class="toolbar-inner">
+                <a href="javascript:;" class="picker-button close-popup">关闭</a>
+                <h1 class="title">修改密码</h1>
+              </div>
+            </div>
+            <div class="modal-content">
+              <div class="weui-grids">
+                <div class="weui-cell">
+                  <div class="weui-cell__hd"><label class="weui-label">旧密码：</label></div>
+                  <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" placeholder="请输入旧密码" v-model.trim="password">
+                  </div>
+                </div>
+                <div class="weui-cell">
+                  <div class="weui-cell__hd"><label class="weui-label">新密码：</label></div>
+                  <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" placeholder="请输入新密码" v-model.trim="new_password">
+                  </div>
+                </div>
+                <div class="weui-cell">
+                  <div class="weui-cell__hd"><label class="weui-label">确认新密码：</label></div>
+                  <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" placeholder="请再次输入新密码" v-model.trim="new_password2">
+                  </div>
+                </div>
+                <a href="javascript:;" class="weui-btn weui-btn_primary" v-if="password&&new_password&&new_password2&&new_password==new_password2" @click="changePassword">提交</a>
+                <a href="javascript:;" class="weui-btn weui-btn_primary weui-btn_disabled" v-else>提交</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 </template>
@@ -73,6 +110,9 @@
         data () {
             return {
               tips: '',
+              password: '',
+              new_password: '',
+              new_password2: '',
             }
         },
       mounted () {
@@ -99,10 +139,29 @@
         },
 
         //退出当前系统
-        logout(){
+        logout () {
           window.localStorage.removeItem('admin_id');
           window.localStorage.removeItem('access_token');
           this.$router.push({path:'/login'});
+        },
+
+        //修改密码
+        changePassword () {
+          this.$http.post('http://www.sikedaodi.com/jikebang/api/web/index.php?r=admin/change-password',{
+            admin_id:window.localStorage.getItem('admin_id'),
+            access_token:window.localStorage.getItem('access_token'),
+            password:this.password,
+            new_password:this.new_password,
+          }).then(response=>{
+              let res = response.data;
+            if (res.result==1) {
+              $.toptip('密码已修改成功', 'success');
+            }else {
+              $.toptip('密码修改失败', 'error');
+            }
+          },error=>{
+            $.toptip('网络异常', 'warning');
+          })
         },
       }
     }
@@ -127,5 +186,12 @@
   .swiper-container img {
     max-width:100%;
     height:auto;
+  }
+  .weui-btn {
+    width: 70%;
+  }
+  .weui-btn_primary {
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 </style>

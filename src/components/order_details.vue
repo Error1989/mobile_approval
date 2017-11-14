@@ -179,6 +179,14 @@
     height:auto;
   }
   p {
+    margin-top: 5px;
     margin-bottom: 5px;
+  }
+  .weui-cells__title {
+    font-size: 15px;
+    margin-top: 10px;
+  }
+  .weui-cell:before {
+    left: 0;
   }
 </style>

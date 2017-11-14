@@ -168,7 +168,7 @@
               remark: '',
             }).then(response=>{
               let res = response.data;
-              $.toast(res.msg);
+              $.toptip(res.msg, 'success');
             })
           },
 
@@ -191,10 +191,10 @@
                   remark:text,
                 },
                 success:function (response) {
-                  $.toast(response.msg);
+                  $.toptip(response.msg, 'success');
                 },
                 error:function (error) {
-                  $.toast("网络异常", "forbidden");
+                  $.toptip("网络异常", 'warning');
                 }
               });
             }, function() {
@@ -233,5 +233,8 @@
   }
   .weui-form-preview__value {
     color: #000000;
+  }
+  .weui-form-preview__hd:after {
+    left: 0;
   }
 </style>

@@ -279,4 +279,7 @@
   .weui-form-preview__value {
     color: #000000;
   }
+  .weui-form-preview__hd:after {
+    left: 0;
+  }
 </style>

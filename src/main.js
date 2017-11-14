@@ -118,7 +118,7 @@ Vue.http.interceptors.push((request, next) => {
     Vue.http.headers.common['Authorization'] = 'Bearer ' + window.localStorage.getItem('access_token');//如果access_token存在，就在请求头中加入access_token
   }
   next((response) => {
-    if (response.data.result === -99) {//判断access_token是否过期
+    if (response.data.result == -99) {//判断access_token是否过期
       //清空过期的用户登录信息
       window.localStorage.removeItem('access_token');
       window.localStorage.removeItem('admin_id');
