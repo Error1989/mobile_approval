@@ -4,9 +4,9 @@
       <h3>欢迎登陆</h3>
     </header>
     <div class="weui-cell">
-      <div class="weui-cell__hd"><label class="weui-label">手机号：</label></div>
+      <div class="weui-cell__hd"><label class="weui-label">用户名：</label></div>
       <div class="weui-cell__bd">
-        <input class="weui-input" type="text" placeholder="请输入您的手机号" v-model.trim="username">
+        <input class="weui-input" type="text" placeholder="请输入您的用户名" v-model.trim="username">
       </div>
       <div class="weui-cell__ft">
         <button class="weui-vcode-btn" @click="getUsername" style="font-size: 15px;">最近登录</button>

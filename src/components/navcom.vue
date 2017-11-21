@@ -8,11 +8,10 @@
         <!--banner图片-->
         <div class="swiper-container">
           <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="../assets/img/banner2.jpg" alt=""></div>
-            <div class="swiper-slide"><img src="../assets/img/banner1.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="../assets/img/banner3.jpg" alt=""></div>
           </div>
           <!-- Add Pagination -->
-          <div class="swiper-pagination"></div>
+          <!--<div class="swiper-pagination"></div>-->
         </div>
 
         <router-link to="/auditList" class="weui-grid js_grid">
