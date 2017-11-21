@@ -267,7 +267,7 @@
       },
       //订单提交功能
       onSubmit () {
-        this.$http.post('http://www.sikedaodi.com/jikebang/api/web/index.php?r=admin/submit-detail',{
+        this.$http.post('http://www.sikedaodi.com/jikebang/api/web/index.php?r=admin/submit-order',{
           products:this.products,
 //          accessories:this.accessories,
           receiver_name:this.receiver_name,
