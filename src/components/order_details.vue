@@ -44,7 +44,7 @@
         <div class="weui-cell__bd">
           <p>收货人：{{detailsData.receiver_name}}</p>
           <p>收货人电话：{{detailsData.receiver_mobile}}</p>
-          <p>邮编：{{detailsData.receiver_zip}}</p>
+          <!--<p>邮编：{{detailsData.receiver_zip}}</p>-->
           <p>省市区：{{detailsData.receiver_province+detailsData.receiver_city+detailsData.receiver_district}}</p>
           <p>街道地址：{{detailsData.receiver_address}}</p>
           <p>备注信息：{{detailsData.remark}}</p>
