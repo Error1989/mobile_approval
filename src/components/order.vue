@@ -256,7 +256,7 @@
         this.receiver_city = this.addressData[i].receiver_city
         this.receiver_district = this.addressData[i].receiver_district;
         this.receiver_address = this.addressData[i].receiver_address;
-        this.receiver_zip = this.addressData[i].receiver_zip;
+//        this.receiver_zip = this.addressData[i].receiver_zip;
         $("#distpicker3").distpicker('destroy');
         $("#distpicker3").distpicker({
           province: this.receiver_province,
