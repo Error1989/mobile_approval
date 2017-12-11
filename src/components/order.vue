@@ -187,6 +187,7 @@
   </div>
 </template>
 <script>
+  import url from '../api_url'
   export default {
     name: 'order',
     data () {
@@ -214,6 +215,7 @@
         receiver_district: '',
       }
     },
+    components: {url},
     watch: {
       isExpress: function () {
         this.receiver_zip = '';
@@ -267,7 +269,7 @@
       },
       //订单提交功能
       onSubmit () {
-        this.$http.post('http://www.sikedaodi.com/jikebang/api/web/index.php?r=admin/submit-order',{
+        this.$http.post(url.submitOrder,{
           products:this.products,
 //          accessories:this.accessories,
           receiver_name:this.receiver_name,
@@ -291,7 +293,7 @@
       },
       //获取商品的数据（遮罩层）
       getProductsData () {
-        this.$http.post('http://www.sikedaodi.com/jikebang/api/web/index.php?r=product/list',{
+        this.$http.post(url.productList,{
           admin_id:window.localStorage.getItem('admin_id'),
           access_token:window.localStorage.getItem('access_token'),
         }).then(response=>{
@@ -301,7 +303,7 @@
       },
       //获取辅料的数据（遮罩层）
       getAccessoriesData () {
-        this.$http.post('http://www.sikedaodi.com/jikebang/api/web/index.php?r=product/accessory-list',{
+        this.$http.post(url.accessoryList,{
           admin_id:window.localStorage.getItem('admin_id'),
           access_token:window.localStorage.getItem('access_token'),
         }).then(response=>{
@@ -311,7 +313,7 @@
       },
       //获取收货人及地址的数据（遮罩层）
       getAddressData () {
-        this.$http.post('http://www.sikedaodi.com/jikebang/api/web/index.php?r=admin/address-list',{
+        this.$http.post(url.adressList,{
           admin_id:window.localStorage.getItem('admin_id'),
           access_token:window.localStorage.getItem('access_token'),
         }).then(response=>{
@@ -322,7 +324,7 @@
 
       //获取快递公司信息
       getExpress () {
-        this.$http.post('http://www.sikedaodi.com/jikebang/api/web/index.php?r=common/express-list',{
+        this.$http.post(url.expressList,{
           admin_id:window.localStorage.getItem('admin_id'),
           access_token:window.localStorage.getItem('access_token'),
         }).then(response=>{

@@ -25,6 +25,7 @@
 </template>
 
 <script>
+  import url from '../api_url'
 export default {
   name: 'login',
   data () {
@@ -33,6 +34,7 @@ export default {
       password: '',
     }
   },
+  components: {url},
   mounted () {
 
   },
@@ -53,7 +55,7 @@ export default {
       let username = this.username;
       $.ajax({
         type:'post',
-        url:'http://www.sikedaodi.com/jikebang/api/web/index.php?r=admin/login',
+        url:url.login,
         dataType:'json',
         data:{username:this.username, password:this.password,},
         async:false,

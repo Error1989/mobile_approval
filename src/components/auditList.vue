@@ -118,6 +118,7 @@
 </template>
 
 <script>
+  import url from '../api_url'
     export default {
         name: 'auditList',
         data () {
@@ -129,6 +130,7 @@
               msg:[],
             }
         },
+      components: {url},
         mounted () {
           this.getMsg();
         },
@@ -136,7 +138,7 @@
           //获取付款审批的信息
           getMsg (flag) {
             this.loading = true;
-            this.$http.post('http://www.sikedaodi.com/jikebang/api/web/index.php?r=admin/transaction-audit-list',{
+            this.$http.post(url.auditList,{
               admin_id:window.localStorage.getItem('admin_id'),
               access_token:window.localStorage.getItem('access_token'),
               page:this.page,
@@ -160,7 +162,7 @@
 
           //通过审核
           onSubmit (i) {
-            this.$http.post('http://www.sikedaodi.com/jikebang/api/web/index.php?r=admin/audit',{
+            this.$http.post(url.audit,{
               admin_id:window.localStorage.getItem('admin_id'),
               access_token:window.localStorage.getItem('access_token'),
               transaction_id:i,
@@ -181,7 +183,7 @@
               //不通过审核
               $.ajax({
                 type:'post',
-                url:'http://www.sikedaodi.com/jikebang/api/web/index.php?r=admin/audit',
+                url:url.audit,
                 dataType:'json',
                 data:{
                   admin_id:window.localStorage.getItem('admin_id'),

@@ -104,6 +104,7 @@
 </template>
 
 <script>
+  import url from '../api_url'
     export default {
         name: 'navcom',
         data () {
@@ -114,6 +115,7 @@
               new_password2: '',
             }
         },
+      components: {url},
       mounted () {
         $(".swiper-container").swiper({
           pagination: '.swiper-pagination',
@@ -128,7 +130,7 @@
       methods: {
         //获取付款审批组件内未处理信息的总数
         getTips () {
-          this.$http.post('http://www.sikedaodi.com/jikebang/api/web/index.php?r=admin/active-transaction-count',{
+          this.$http.post(url.transactionCount,{
             admin_id:window.localStorage.getItem('admin_id'),
             access_token:window.localStorage.getItem('access_token'),
           }).then(response=>{
@@ -146,7 +148,7 @@
 
         //修改密码
         changePassword () {
-          this.$http.post('http://www.sikedaodi.com/jikebang/api/web/index.php?r=admin/change-password',{
+          this.$http.post(url.changePassword,{
             admin_id:window.localStorage.getItem('admin_id'),
             access_token:window.localStorage.getItem('access_token'),
             password:this.password,

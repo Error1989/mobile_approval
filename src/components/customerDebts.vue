@@ -128,6 +128,7 @@
 </template>
 
 <script>
+  import url from '../api_url'
     export default {
         name: 'customerDebts',
         data () {
@@ -142,6 +143,7 @@
               msg_key2:false,
             }
         },
+        components: {url},
         mounted () {
           this.getMsg();
         },
@@ -149,7 +151,7 @@
           //获取客户的货款信息
           getMsg (flag) {
             this.loading = true;
-            this.$http.post('http://www.sikedaodi.com/jikebang/api/web/index.php?r=admin/customer-debts',{
+            this.$http.post(url.customerDebts,{
               admin_id:window.localStorage.getItem('admin_id'),
               access_token:window.localStorage.getItem('access_token'),
               page:this.page,
@@ -175,7 +177,7 @@
           searchExpired (flag) {
             this.loading = true;
             this.msg_key1 = true;
-            this.$http.post('http://www.sikedaodi.com/jikebang/api/web/index.php?r=admin/customer-debts',{
+            this.$http.post(url.customerDebts,{
               admin_id:window.localStorage.getItem('admin_id'),
               access_token:window.localStorage.getItem('access_token'),
               status:'已逾期',
@@ -203,7 +205,7 @@
           searchUnpaid (flag) {
             this.loading = true;
             this.msg_key2 = true;
-            this.$http.post('http://www.sikedaodi.com/jikebang/api/web/index.php?r=admin/customer-debts',{
+            this.$http.post(url.customerDebts,{
               admin_id:window.localStorage.getItem('admin_id'),
               access_token:window.localStorage.getItem('access_token'),
               status:'应付款',
