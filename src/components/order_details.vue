@@ -4,15 +4,6 @@
       <h3>订单详情</h3>
     </header>
     <div class="weui-cells" style="margin-top:0px;">
-      <!--banner图片-->
-      <div class="swiper-container" style="font-size:0;">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide"><img src="../assets/img/banner3.jpg" alt=""></div>
-        </div>
-        <!-- Add Pagination -->
-        <!--<div class="swiper-pagination"></div>-->
-      </div>
-
       <div class="weui-cell">
         <div class="weui-cell__bd">
           <p>订单ID：{{detailsData.id}}</p>
@@ -69,14 +60,12 @@
       </div>
 
       <div class="weui-cells__title" v-if="expressData.Success">物流追踪</div>
-      <div class="weui-cell" v-if="expressData.Success">
         <yd-timeline>
           <yd-timeline-item v-for="(item,index) in expressData.Traces" :key="item.id">
             <p v-html="item.AcceptStation"> <span v-if="item.Remark">({{item.Remark}})</span></p>
             <p style="margin-top: 10px;">{{item.AcceptTime}}</p>
           </yd-timeline-item>
         </yd-timeline>
-      </div>
     </div>
     <div style="text-align: center;margin-top: 20px;">
       <img src="./../assets/loading.gif" v-if="loading">
