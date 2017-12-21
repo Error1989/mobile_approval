@@ -1,5 +1,5 @@
 <template>
-  <div id="order_details" @touchmove="firstStyle" @mouseover="firstStyle">
+  <div id="order_details">
     <header>
       <h3>订单详情</h3>
     </header>
@@ -70,12 +70,12 @@
 
       <div class="weui-cells__title" v-if="expressData.Success">物流追踪</div>
       <div class="weui-cell" v-if="expressData.Success">
-        <div class="weui-cell__bd">
-          <p style="color: #999;" v-for="item in expressData.Traces" ref="express">
-            >> {{item.AcceptTime}}<br/>{{item.AcceptStation}} <span v-if="item.Remark">({{item.Remark}})</span>
-          </p>
-        </div>
-        <div class="weui-cell__ft"></div>
+        <yd-timeline>
+          <yd-timeline-item v-for="(item,index) in expressData.Traces" :key="item.id">
+            <p v-html="item.AcceptStation"> <span v-if="item.Remark">({{item.Remark}})</span></p>
+            <p style="margin-top: 10px;">{{item.AcceptTime}}</p>
+          </yd-timeline-item>
+        </yd-timeline>
       </div>
     </div>
     <div style="text-align: center;margin-top: 20px;">
@@ -139,15 +139,6 @@
             this.loading = false;
           }else {
             return;
-          }
-        })
-      },
-      //改变物流追踪最后一条结果的颜色
-      firstStyle () {
-        Vue.nextTick(() => {
-          if (this.expressData.Success) {
-            let item = this.$refs.express;
-            item[0].style.color = '#00b7ff';
           }
         })
       },

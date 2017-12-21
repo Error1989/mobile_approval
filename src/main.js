@@ -14,6 +14,9 @@ import VueResource from 'vue-resource'
 import infiniteScroll from 'vue-infinite-scroll'
 import VueLazyLoad from 'vue-lazyload'
 import Vuex from 'vuex'
+import YDUI from 'vue-ydui';
+import 'vue-ydui/dist/ydui.rem.css';
+Vue.use(YDUI);
 Vue.use(VueRouter)
 Vue.use(VueResource)
 Vue.use(Vuex)
@@ -135,6 +138,7 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  render: h => h(App),
   router,
   template: '<App/>',
   components: { App, order, login, navcom, auditList, customerDebts, search, order_details,}

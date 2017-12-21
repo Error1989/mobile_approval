@@ -46,7 +46,7 @@
         <div class="weui-cells">
           <div class="weui-cell" v-for="(item,index) in productsData">
             <div class="weui-cell__bd">
-              <p>{{index+1}}.{{item.name}}</p>
+              <p>{{item.name}}</p>
             </div>
             <div class="weui-cell__ft">
               <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_plain-primary" @click.once="addProducts(index)">选择</a>
@@ -66,7 +66,7 @@
         <div class="weui-cells">
           <div class="weui-cell" v-for="(item,index) in accessoriesData">
             <div class="weui-cell__bd">
-              <p>{{index+1}}.{{item.name}}</p>
+              <p>{{item.name}}</p>
             </div>
             <div class="weui-cell__ft">
               <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_plain-primary" @click.once="addAccessories(index)">选择</a>

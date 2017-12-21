@@ -23,7 +23,7 @@
     <div class="weui-cells" v-for="(item,index) in searchData">
       <div class="weui-cell">
         <div class="weui-cell__bd">
-          <p>{{index+1}}.{{item.receiver_province+item.receiver_city+item.receiver_district}}</p>
+          <p>{{item.receiver_province+item.receiver_city+item.receiver_district}}</p>
           <p class="weui-media-box__desc">收货人：{{item.receiver_name}}</p>
           <p class="weui-media-box__desc">收货人电话：{{item.receiver_mobile}}</p>
           <p class="weui-media-box__desc">创建时间：{{item.update_time}}</p>

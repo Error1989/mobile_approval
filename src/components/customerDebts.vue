@@ -111,7 +111,7 @@
               <!--未逾期，但下期应付款的订单-->
               <div class="weui-form-preview__bd" style="border-bottom:1px solid #d9d9d9;">
                 <div class="weui-form-preview__item" v-for="(item,index) in msg[index].unpaid_orders">
-                  <label class="weui-form-preview__label" style="color: #00bfff">{{index+1}}.应付日期 {{item.next_paytime}}</label>
+                  <label class="weui-form-preview__label" style="color: #00bfff">应付日期 {{item.next_paytime}}</label>
                   <span class="weui-form-preview__value" style="color: #00bfff">{{item.order_no.split(',').length}}笔订单合计 ¥{{item.amount}}</span>
                 </div>
               </div>

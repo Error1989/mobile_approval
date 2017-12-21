@@ -20,7 +20,7 @@
           </div>
           <p class="weui-grid__label">
             付款审批
-            <span v-if="tips!=='0'" class="weui-badge" style="position: absolute;line-height: 11px;">{{tips}}</span>
+            <span class="weui-badge" style="position: absolute;line-height: 11px;">{{tips}}</span>
           </p>
         </router-link><router-link to="/customerDebts" class="weui-grid js_grid">
         <div class="weui-grid__icon">
